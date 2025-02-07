@@ -20,21 +20,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ensure build dir exists
-        run: mkdir -p build
-
       - name: Marp Build
         uses: docker://marpteam/marp-cli:v4.1.1
         with:
-          args: -I *.slides.md -o build/ --pdf
+          args: '*.slides.md --pdf'
         env:
           MARP_USER: root:root
+
+      - name: Move files to dist dir
+        run: mkdir -p dist && mv *.slides.pdf dist/
 
       - name: Deploy preview
         if: ${{ github.event_name == 'pull_request' }}
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: ./build/
+          source-dir: ./dist/
           preview-branch: gh-pages
           umbrella-dir: pr-preview
 
@@ -43,5 +43,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: ./build/
+          folder: ./dist/
           clean-exclude: pr-preview/
