@@ -97,6 +97,8 @@ brew services symfony-cli start
 symfony ca:install
 ```
 
+→ setup proxy!
+
 ![bg fit right](assets/symfony-cli/macos-configure-symfony-proxy.png)
 
 ---
