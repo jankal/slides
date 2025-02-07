@@ -83,7 +83,39 @@ brew install symfony-cli/tap/symfony-cli
 ```
 
 ```shell
-symfony local:php:list
+docker compose up -d
+```
+
+```shell
+symfony serve
+```
+
+```shell
+$ symfony serve
+                                                                                                                        
+ [WARNING] The local web server is optimized for local development and MUST never be used in a production setup.        
+                                                                                                                        
+
+                                                                                                                        
+ [WARNING] Please note that the Symfony CLI only listens on 127.0.0.1 by default since version 5.10.3.                  
+           You can use the --allow-all-ip or --listen-ip flags to change this behavior.                                 
+                                                                                                                        
+
+                                                                                                                        
+ [OK] Web server listening                                                                                              
+      The Web server is using PHP FPM 8.4.3                                                                             
+      https://127.0.0.1:8078                          
+                                                                                                                        
+
+Stream the logs via symfony server:log
+```
+
+---
+
+# Stream server logs
+
+```shell
+symfony server:log
 ```
 
 ---
@@ -94,7 +126,7 @@ brew services symfony-cli start
 ```
 
 ```shell
-symfony ca:install
+symfony local:server:ca:install
 ```
 
 → setup proxy!
@@ -102,6 +134,59 @@ symfony ca:install
 ![bg fit right](assets/symfony-cli/macos-configure-symfony-proxy.png)
 
 ---
+
+# Configuration
+
+Config file: `.symfony.local.yaml`
+
+```yaml path=".symfony.local.yaml"
+proxy:
+    domains:
+        - shop
+http:
+    daemon: true
+    use_gzip: true
+    port: 8078
+```
+
+To set up a different proxy TLD then `.wip`
+```shell
+symfony local:proxy:tld <tld>
+```
+
+---
+
+# Running background tasks
+
+```yaml path=".symfony.local.yaml"
+...
+workers:
+    messenger_consume_async: ~
+```
+
+---
+# Additional features
+
+- Wildcard-Domains supported
+
+```yaml path=".symfony.local.yaml"
+proxy:
+    domains:
+        - *.shop*
+```
+
+
+---
+# Debugging
+
+- running xDebug
+- Docker env variables
+  ```shell
+  symfony var:export --debug
+  ```
+
+---
+
 # Sources
 
 - https://pixabay.com/photos/rocket-launch-rocket-space-shuttle-67649/
