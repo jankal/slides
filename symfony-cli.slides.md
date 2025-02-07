@@ -39,7 +39,7 @@ _color: white
   - filesystem performance
 - ✅ official symfony way
   - Symfony Profiler integration
-  - Platform.sh integration
+  - Platform.sh integration → Shopware PaaS 😉
 - 🖥️ platform agnostic
 
 ---
@@ -47,9 +47,9 @@ _color: white
 # 🐸 What?
 
 - single binary built with golang
-- natively installed binaries for php and extensions
-  (easily done with brew 😉)
-- global proxy service for local ssl
+- uses natively installed binaries for php and extensions
+  (easily done with bre on mac 😉)
+- global proxy service for local SSL
 - env-injecting proxy commands
 
 ---
@@ -149,10 +149,23 @@ http:
     port: 8078
 ```
 
-To set up a different proxy TLD then `.wip`
+To set up a different proxy TLD than `.wip`
 ```shell
 symfony local:proxy:tld <tld>
 ```
+
+---
+### Custom PHP ini settings
+
+Create a `.php.ini`-file in your project and set options
+```ini
+upload_max_filesize = 256M
+memory_limit = 2G
+```
+
+### Different PHP version
+
+Create a `.php-version` file with the required PHP version
 
 ---
 
@@ -164,6 +177,8 @@ workers:
     messenger_consume_async: ~
 ```
 
+Just runs the `messenger:consume` command in the background (restarting when failed)
+
 ---
 # Additional features
 
@@ -172,19 +187,27 @@ workers:
 ```yaml path=".symfony.local.yaml"
 proxy:
     domains:
-        - *.shop*
+        - *.shop
 ```
+Configures `*.shop.wip` to be reachable - useful for multiple sales-channels
 
 
 ---
 # Debugging
 
 - running xDebug
+  `.php.ini`
+  ```ini
+  xdebug.mode = debug
+  ```
 - Docker env variables
   ```shell
   symfony var:export --debug
   ```
+---
+# Tips and tricks
 
+- fixating `docker-compose` services to local ports using a `compose.override.yaml`
 ---
 
 # Sources
