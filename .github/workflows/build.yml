@@ -30,6 +30,11 @@ jobs:
       - name: Move files to dist dir
         run: mkdir -p dist && mv *.slides.pdf dist/
 
+      - name: Generate Directory Listings
+        uses: jayanta525/github-pages-directory-listing@v4.0.0
+        with:
+          FOLDER: dist
+
       - name: Deploy preview
         if: ${{ github.event_name == 'pull_request' }}
         uses: rossjrw/pr-preview-action@v1
