@@ -48,7 +48,7 @@ _color: white
 
 - single binary built with golang
 - uses natively installed binaries for php and extensions
-  (easily done with bre on mac 😉)
+  (easily done with homebrew on mac 😉)
 - global proxy service for local SSL
 - env-injecting proxy commands
 
