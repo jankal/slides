@@ -23,7 +23,7 @@ jobs:
       - name: Marp Build
         uses: docker://marpteam/marp-cli:v4.1.1
         with:
-          args: '*.slides.md --pdf'
+          args: '*.slides.md --pdf --allow-local-files'
         env:
           MARP_USER: root:root
 
