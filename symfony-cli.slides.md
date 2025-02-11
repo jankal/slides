@@ -208,6 +208,7 @@ Configures `*.shop.wip` to be reachable - useful for multiple sales-channels
 # Tips and tricks
 
 - fixating `docker-compose` services to local ports using a `compose.override.yaml`
+- using command line HTTP tools with `https_proxy=$(symfony proxy:url) curl abc.wip/`
 ---
 
 # Sources
