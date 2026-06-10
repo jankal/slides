@@ -6,6 +6,9 @@ info: |
   60-Minuten-Segment: Tool-Vergleich
   GEO Masterclass · Stand der Daten: Juni 2026
 highlighter: shiki
+# hash routing: works on static hosting under a sub-path without a
+# site-root 404.html fallback (deep links / refresh on slide N)
+routerMode: hash
 drawings:
   persist: false
 transition: fade
