@@ -1,4 +1,5 @@
-name: marp-to-pages
+name: build-slides
+
 concurrency: marp-to-pages
 
 on:
@@ -10,8 +11,102 @@ on:
       - reopened
       - synchronize
       - closed
+
 jobs:
-  build:
+  build-marp:
+    # Skip builds when a PR is closed; only preview cleanup is needed then.
+    if: github.event_name == 'push' || github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # --html allows the raw HTML tags used in the decks (HTML output is
+      # the default format; the flag is not an output selector).
+      - name: Marp build (PDF)
+        uses: docker://marpteam/marp-cli:v4.1.1
+        with:
+          args: 'marpit/*.slides.md --pdf --allow-local-files --html'
+        env:
+          MARP_USER: root:root
+
+      - name: Marp build (HTML)
+        uses: docker://marpteam/marp-cli:v4.1.1
+        with:
+          args: 'marpit/*.slides.md --html'
+        env:
+          MARP_USER: root:root
+
+      - name: Assemble Marp dist
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          mv marpit/*.slides.pdf dist/
+          mv marpit/*.slides.html dist/
+          # HTML output references assets/<deck>/... relatively
+          cp -R marpit/assets dist/assets
+
+      - name: Upload Marp output
+        uses: actions/upload-artifact@v4
+        with:
+          name: marp-dist
+          path: dist
+
+  build-slidev:
+    if: github.event_name == 'push' || github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: slidev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # npm install (not ci): no lockfile is committed yet
+      - name: Install dependencies
+        run: npm install
+
+      # Required by `slidev export`; postinstall downloads Chromium
+      - name: Install Playwright Chromium
+        run: npm install -D playwright-chromium
+
+      - name: Build SPAs and export PDFs
+        env:
+          # --base is baked at build time; point it at the PR preview
+          # location so interactive decks work in previews too.
+          BASE_PREFIX: ${{ github.event_name == 'pull_request' && format('/pr-preview/pr-{0}', github.event.number) || '' }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for entry in *.md; do
+            [ "$entry" = "README.md" ] && continue
+            name="${entry%.md}"
+            echo "::group::Building $name"
+            npx slidev build "$entry" --base "${BASE_PREFIX}/slidev/${name}/" --out "dist/${name}"
+            npx slidev export "$entry" --output "dist/${name}.pdf" --timeout 60000
+            echo "::endgroup::"
+          done
+
+      - name: Upload Slidev output
+        uses: actions/upload-artifact@v4
+        with:
+          name: slidev-dist
+          path: slidev/dist
+
+  deploy:
+    needs: [build-marp, build-slidev]
+    # Run even when builds were skipped (PR closed -> preview cleanup),
+    # but never after a failed build.
+    if: ${{ !cancelled() && needs.build-marp.result != 'failure' && needs.build-slidev.result != 'failure' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,17 +115,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Marp Build
-        uses: docker://marpteam/marp-cli:v4.1.1
+      - name: Download Marp output
+        if: github.event.action != 'closed'
+        uses: actions/download-artifact@v4
         with:
-          args: '*.slides.md --pdf --allow-local-files'
-        env:
-          MARP_USER: root:root
+          name: marp-dist
+          path: dist
 
-      - name: Move files to dist dir
-        run: mkdir -p dist && mv *.slides.pdf dist/
+      - name: Download Slidev output
+        if: github.event.action != 'closed'
+        uses: actions/download-artifact@v4
+        with:
+          name: slidev-dist
+          path: dist/slidev
 
       - name: Generate Directory Listings
+        if: github.event.action != 'closed'
         uses: jayanta525/github-pages-directory-listing@v4.0.0
         with:
           FOLDER: dist
