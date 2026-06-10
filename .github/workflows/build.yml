@@ -21,7 +21,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # --html allows the raw HTML tags used in the decks (HTML output is
       # the default format; the flag is not an output selector).
@@ -49,7 +49,7 @@ jobs:
           cp -R marpit/assets dist/assets
 
       - name: Upload Marp output
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: marp-dist
           path: dist
@@ -64,10 +64,10 @@ jobs:
         working-directory: slidev
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
 
@@ -97,7 +97,7 @@ jobs:
           done
 
       - name: Upload Slidev output
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: slidev-dist
           path: slidev/dist
@@ -113,18 +113,18 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download Marp output
         if: github.event.action != 'closed'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: marp-dist
           path: dist
 
       - name: Download Slidev output
         if: github.event.action != 'closed'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: slidev-dist
           path: dist/slidev
