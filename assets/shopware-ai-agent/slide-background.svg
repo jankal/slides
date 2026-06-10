@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1200">
+  <path d="m1571.5,0l-.1.1L0,483.9,510.8,0h1060.7Z" style="fill: #102543; opacity: .8; stroke-width: 0px;"/>
+  <path d="m1571.4.1l-714.8,779.6L0,483.9,1571.4.1Z" style="fill: #0092cc; opacity: .8; stroke-width: 0px;"/>
+  <path d="m2000,0v53.7L1571.7,0h428.3Z" style="fill: #102543; opacity: .8; stroke-width: 0px;"/>
+  <path d="m2000,53.7v471.1L1571.7,0l428.3,53.7Z" style="fill: #0077bd; opacity: .8; stroke-width: 0px;"/>
+  <path d="m2000,524.8l-1143.4,254.9L1571.4.1l.3-.1,428.3,524.8Z" style="fill: #2486c8; opacity: .8; stroke-width: 0px;"/>
+  <path d="m2000,524.8v543.4l-1142-288.1-1.4-.4,1143.4-254.9Z" style="fill: #00b7db; opacity: .8; stroke-width: 0px;"/>
+  <path d="m552.8,1200l303.8-420.3L0,483.9l364.9,716.1h187.9Z" style="fill: #184082; opacity: .8; stroke-width: 0px;"/>
+  <path d="m0,.1v483.8L510.8,0,0,.1Z" style="fill: #00b7db; opacity: .8; stroke-width: 0px;"/>
+  <path d="m2000,1200v-131.8l-1142-288.1-1.4-.4-303.8,420.3h1447.2Z" style="fill: #102543; opacity: .8; stroke-width: 0px;"/>
+  <path d="m364.9,1200L0,483.9v716.1h364.9Z" style="fill: #0077bd; opacity: .8; stroke-width: 0px;"/>
+</svg>

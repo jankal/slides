@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 179.9 171.97">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2c7fbf;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #54c5dd;
+      }
+
+      .cls-3 {
+        fill: #147ebd;
+      }
+
+      .cls-4 {
+        fill: #3297c7;
+      }
+
+      .cls-5 {
+        fill: #0e233e;
+      }
+
+      .cls-6 {
+        fill: #52a3d3;
+      }
+
+      .cls-7 {
+        fill: #204488;
+      }
+
+      .cls-8 {
+        fill: #2f96c4;
+      }
+
+      .cls-9 {
+        fill: #428ec7;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-7" points="31.49 0 1.16 30.33 31.49 60.66 31.49 0"/>
+  <polygon class="cls-5" points="0 97.77 30.33 67.43 0 37.1 0 97.77"/>
+  <polygon class="cls-7" points="31.49 134.87 31.49 74.21 1.16 104.54 31.49 134.87"/>
+  <polygon class="cls-5" points="0 171.97 30.33 141.64 0 111.31 0 171.97"/>
+  <polygon class="cls-1" points="37.1 0 37.1 60.66 67.43 30.33 37.1 0"/>
+  <polygon class="cls-8" points="38.26 67.43 68.6 97.76 68.6 37.1 38.26 67.43"/>
+  <polygon class="cls-1" points="37.1 134.87 67.43 104.54 37.1 74.21 37.1 134.87"/>
+  <polygon class="cls-2" points="74.21 37.1 74.21 97.76 104.54 67.43 74.21 37.1"/>
+  <polygon class="cls-9" points="148.41 171.97 178.74 141.64 148.41 111.31 148.41 171.97"/>
+  <polygon class="cls-6" points="164.74 89.37 149.57 104.54 179.9 134.87 179.9 74.2 164.74 89.37"/>
+  <polygon class="cls-9" points="148.41 97.76 178.74 67.43 148.41 37.1 148.41 97.76"/>
+  <polygon class="cls-6" points="179.9 0 149.57 30.33 179.9 60.66 179.9 0"/>
+  <polygon class="cls-3" points="112.47 141.64 142.8 171.97 142.8 111.31 112.47 141.64"/>
+  <polygon class="cls-4" points="111.31 74.21 111.31 134.87 141.64 104.54 111.31 74.21"/>
+  <polygon class="cls-3" points="142.8 37.1 112.47 67.43 142.8 97.76 142.8 37.1"/>
+  <polygon class="cls-2" points="105.7 74.21 75.37 104.54 105.7 134.87 105.7 74.21"/>
+</svg>
